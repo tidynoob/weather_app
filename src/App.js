@@ -1,25 +1,46 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Box } from '@chakra-ui/react';
+import Navbar from './components/Navbar';
+import Main from './components/Main';
 import './App.css';
 
 function App() {
+  const [location, setLocation] = React.useState('San Diego, US');
+  const [weather, setWeather] = React.useState({});
+  // const [units, setUnits] = React.useState('imperial');
+  const units = 'standard';
+
+  const getWeather = async () => {
+    try {
+      const apiRes = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=${units}&appid=be52ad8c25d5b3d1fd27e03eb45e817d`
+      );
+      const resJSON = await apiRes.json();
+      setWeather(resJSON);
+      // eslint-disable-next-line
+      console.log(resJSON)
+    } catch (err) {
+      // eslint-disable-next-line
+      console.log(err);
+    }
+  };
+
+  React.useEffect(() => {
+    getWeather();
+    // eslint-disable-next-line
+    console.log(location);
+    // eslint-disable-next-line
+  }, [location]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box id="App">
+      <Navbar />
+      <Main
+        handleLocation={setLocation}
+        weather={weather}
+        handleWeather={getWeather}
+      />
+    </Box>
   );
 }
 

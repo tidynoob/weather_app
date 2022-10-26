@@ -1,18 +1,26 @@
 {
-    "plugins": ["react", "prettier"],
-    "extends": ["react-app", "airbnb", "prettier"],
-    "rules": {
-      "prettier/prettier": [
-        "error",
-        {
-          "singleQuote": true
-        }
-      ],
-      "react/jsx-filename-extension": [
-        "warn",
-        {
-          "extensions": [".js", ".jsx"]
-        }
-      ]
-    }
+  "plugins": ["react", "prettier"],
+  "extends": ["react-app", "airbnb", "prettier"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "endOfLine": "auto"
+      }
+    ],
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "react/no-children-prop": ["off"],
+    "react/jsx-props-no-spreading": ["off"]
   }
+}
