@@ -9,6 +9,8 @@ import {
   useBoolean,
   Button,
   InputRightElement,
+  Heading,
+  Text,
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import DeleteIcon from './DeleteIcon';
@@ -84,11 +86,41 @@ function LocationInput(props) {
 
 LocationInput.propTypes = {
   handleLocation: PropTypes.func.isRequired,
-  //   handleWeather: PropTypes.func.isRequired,
+};
+
+function WeatherDisplay(props) {
+  const { weather } = props;
+  const { main, name } = weather;
+
+  return (
+    main && (
+      <Box>
+        <Heading>{name}</Heading>
+        <Flex flexDir="column">
+          <Text>{main.temp}</Text>
+          <Text>{main.temp_max}</Text>
+          <Text>{main.temp_min}</Text>
+          <Text>{main.feels_like}</Text>
+        </Flex>
+      </Box>
+    )
+  );
+}
+
+WeatherDisplay.propTypes = {
+  weather: PropTypes.shape({
+    main: PropTypes.shape({
+      temp: PropTypes.number,
+      temp_max: PropTypes.number,
+      temp_min: PropTypes.number,
+      feels_like: PropTypes.number,
+    }),
+    name: PropTypes.string,
+  }).isRequired,
 };
 
 function Main(props) {
-  const { handleLocation, handleWeather } = props;
+  const { handleLocation, handleWeather, weather } = props;
 
   return (
     <Box
@@ -100,11 +132,13 @@ function Main(props) {
       alignItems="center"
       mx="auto"
       px={4}
+      gap={4}
     >
       <LocationInput
         handleLocation={handleLocation}
         handleWeather={handleWeather}
       />
+      <WeatherDisplay weather={weather} />
     </Box>
   );
 }
@@ -112,7 +146,27 @@ function Main(props) {
 Main.propTypes = {
   handleLocation: PropTypes.func.isRequired,
   handleWeather: PropTypes.func.isRequired,
-  //   weather: PropTypes.shape.isRequired,
+  weather: PropTypes.shape({
+    main: PropTypes.shape({
+      temp: PropTypes.number,
+      temp_max: PropTypes.number,
+      temp_min: PropTypes.number,
+      feels_like: PropTypes.number,
+    }),
+    name: PropTypes.string,
+  }),
+};
+
+Main.defaultProps = {
+  weather: {
+    main: {
+      temp: null,
+      temp_max: null,
+      temp_min: null,
+      feels_like: null,
+    },
+    name: null,
+  },
 };
 
 export default Main;
