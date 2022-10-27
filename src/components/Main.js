@@ -90,7 +90,8 @@ LocationInput.propTypes = {
 
 function WeatherDisplay(props) {
   const { weather } = props;
-  const { main, name } = weather;
+  const { weather: weatherData } = weather;
+  const { main, name } = weatherData;
 
   return (
     main && (
@@ -109,13 +110,35 @@ function WeatherDisplay(props) {
 
 WeatherDisplay.propTypes = {
   weather: PropTypes.shape({
-    main: PropTypes.shape({
-      temp: PropTypes.number,
-      temp_max: PropTypes.number,
-      temp_min: PropTypes.number,
-      feels_like: PropTypes.number,
+    weather: PropTypes.shape({
+      main: PropTypes.shape({
+        temp: PropTypes.number,
+        temp_max: PropTypes.number,
+        temp_min: PropTypes.number,
+        feels_like: PropTypes.number,
+      }),
+      name: PropTypes.string,
     }),
-    name: PropTypes.string,
+    forecast: PropTypes.shape({
+      list: PropTypes.arrayOf(
+        PropTypes.shape({
+          dt: PropTypes.number,
+          main: PropTypes.shape({
+            temp: PropTypes.number,
+            temp_max: PropTypes.number,
+            temp_min: PropTypes.number,
+            feels_like: PropTypes.number,
+          }),
+          weather: PropTypes.arrayOf(
+            PropTypes.shape({
+              main: PropTypes.string,
+              description: PropTypes.string,
+              icon: PropTypes.string,
+            })
+          ),
+        })
+      ),
+    }),
   }).isRequired,
 };
 
@@ -147,25 +170,52 @@ Main.propTypes = {
   handleLocation: PropTypes.func.isRequired,
   handleWeather: PropTypes.func.isRequired,
   weather: PropTypes.shape({
-    main: PropTypes.shape({
-      temp: PropTypes.number,
-      temp_max: PropTypes.number,
-      temp_min: PropTypes.number,
-      feels_like: PropTypes.number,
+    weather: PropTypes.shape({
+      main: PropTypes.shape({
+        temp: PropTypes.number,
+        temp_max: PropTypes.number,
+        temp_min: PropTypes.number,
+        feels_like: PropTypes.number,
+      }),
+      name: PropTypes.string,
     }),
-    name: PropTypes.string,
+    forecast: PropTypes.shape({
+      list: PropTypes.arrayOf(
+        PropTypes.shape({
+          dt: PropTypes.number,
+          main: PropTypes.shape({
+            temp: PropTypes.number,
+            temp_max: PropTypes.number,
+            temp_min: PropTypes.number,
+            feels_like: PropTypes.number,
+          }),
+          weather: PropTypes.arrayOf(
+            PropTypes.shape({
+              main: PropTypes.string,
+              description: PropTypes.string,
+              icon: PropTypes.string,
+            })
+          ),
+        })
+      ),
+    }),
   }),
 };
 
 Main.defaultProps = {
   weather: {
-    main: {
-      temp: null,
-      temp_max: null,
-      temp_min: null,
-      feels_like: null,
+    weather: {
+      main: {
+        temp: null,
+        temp_max: null,
+        temp_min: null,
+        feels_like: null,
+      },
+      name: null,
     },
-    name: null,
+    forecast: {
+      list: [],
+    },
   },
 };
 
