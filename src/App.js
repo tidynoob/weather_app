@@ -7,8 +7,41 @@ import './App.css';
 function App() {
   const [location, setLocation] = React.useState('San Diego, US');
   const [weather, setWeather] = React.useState({
-    weather: {},
-    forecast: {},
+    weather: {
+      main: {
+        temp: 0,
+        tempMax: 0,
+        tempMin: 0,
+        feelsLike: 0,
+      },
+      name: '',
+      weather: [
+        {
+          description: '',
+          icon: '',
+        },
+      ],
+    },
+    forecast: {
+      list: [
+        {
+          dt: 0,
+          main: {
+            temp: 0,
+            tempMax: 0,
+            tempMin: 0,
+            feelsLike: 0,
+          },
+          weather: [
+            {
+              main: '',
+              description: '',
+              icon: '',
+            },
+          ],
+        },
+      ],
+    },
   });
   // const [units, setUnits] = React.useState('imperial');
   const units = 'imperial';
@@ -25,12 +58,12 @@ function App() {
       }));
 
       // eslint-disable-next-line
-      console.log(resJSON)
+      // console.log(resJSON)
 
       return resJSON;
     } catch (err) {
       // eslint-disable-next-line
-      console.log(err);
+      alert(err);
       return err;
     }
   };

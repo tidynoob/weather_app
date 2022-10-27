@@ -40,6 +40,12 @@ Main.propTypes = {
         feels_like: PropTypes.number,
       }),
       name: PropTypes.string,
+      weather: PropTypes.arrayOf(
+        PropTypes.shape({
+          description: PropTypes.string,
+          icon: PropTypes.string,
+        })
+      ),
     }),
     forecast: PropTypes.shape({
       list: PropTypes.arrayOf(
@@ -74,9 +80,32 @@ Main.defaultProps = {
         feels_like: null,
       },
       name: null,
+      weather: [
+        {
+          description: null,
+          icon: null,
+        },
+      ],
     },
     forecast: {
-      list: [],
+      list: [
+        {
+          dt: null,
+          main: {
+            temp: null,
+            temp_max: null,
+            temp_min: null,
+            feels_like: null,
+          },
+          weather: [
+            {
+              main: null,
+              description: null,
+              icon: null,
+            },
+          ],
+        },
+      ],
     },
   },
 };
