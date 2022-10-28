@@ -3,6 +3,7 @@ import { Box } from '@chakra-ui/react';
 import Navbar from './components/Navbar';
 import Main from './components/Main';
 import './App.css';
+import Sidebar from './components/Sidebar';
 
 function App() {
   const [location, setLocation] = React.useState('San Diego, US');
@@ -75,13 +76,18 @@ function App() {
   }, [location]);
 
   return (
-    <Box id="App">
+    // <Box id="App">
+    //   <Navbar />
+    //   <Main
+    //     handleLocation={setLocation}
+    //     weather={weather}
+    //     handleWeather={getWeather}
+    //   />
+    // </Box>
+    <Box id="App" display="grid" gridTemplateRows="auto 1fr">
       <Navbar />
-      <Main
-        handleLocation={setLocation}
-        weather={weather}
-        handleWeather={getWeather}
-      />
+      <Sidebar handleLocation={setLocation} />
+      <Main weather={weather} />
     </Box>
   );
 }

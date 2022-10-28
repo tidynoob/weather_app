@@ -5,7 +5,7 @@ import LocationInput from './main/LocationInput';
 import WeatherDisplay from './main/WeatherDisplay';
 
 function Main(props) {
-  const { handleLocation, handleWeather, weather } = props;
+  const { handleLocation, weather } = props;
 
   return (
     <Box
@@ -19,10 +19,7 @@ function Main(props) {
       px={4}
       gap={4}
     >
-      <LocationInput
-        handleLocation={handleLocation}
-        handleWeather={handleWeather}
-      />
+      <LocationInput handleLocation={handleLocation} />
       <WeatherDisplay weather={weather} />
     </Box>
   );
@@ -30,7 +27,6 @@ function Main(props) {
 
 Main.propTypes = {
   handleLocation: PropTypes.func.isRequired,
-  handleWeather: PropTypes.func.isRequired,
   weather: PropTypes.shape({
     weather: PropTypes.shape({
       main: PropTypes.shape({
