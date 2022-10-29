@@ -1,4 +1,4 @@
-import { Container, Heading } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import React from 'react';
 import PropTypes from 'prop-types';
 import LocationInput from './main/LocationInput';
@@ -6,10 +6,17 @@ import LocationInput from './main/LocationInput';
 function Sidebar(props) {
   const { handleLocation } = props;
   return (
-    <Container h="100%" display="flex" flexDir="column">
-      <Heading>My Sidebar</Heading>
+    <Box
+      display="flex"
+      flexDir="column"
+      borderRightWidth="1px"
+      h="100%"
+      p={4}
+      w="xs"
+      bgColor="white"
+    >
       <LocationInput handleLocation={handleLocation} />
-    </Container>
+    </Box>
   );
 }
 

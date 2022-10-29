@@ -14,7 +14,7 @@ import DeleteIcon from '../misc/DeleteIcon';
 
 function LocationInput(props) {
   const [hasText, setHasText] = useBoolean();
-  const { handleLocation } = props;
+  const { handleLocation, closeDrawer, isDrawerOpen } = props;
 
   const formik = useFormik({
     initialValues: {
@@ -42,6 +42,9 @@ function LocationInput(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     formik.handleSubmit();
+    if (isDrawerOpen) {
+      closeDrawer();
+    }
   };
 
   const deleteIconBtn = (
@@ -81,6 +84,8 @@ function LocationInput(props) {
 
 LocationInput.propTypes = {
   handleLocation: PropTypes.func.isRequired,
+  closeDrawer: PropTypes.func.isRequired,
+  isDrawerOpen: PropTypes.bool.isRequired,
 };
 
 export default LocationInput;

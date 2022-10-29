@@ -1,50 +1,52 @@
 import React from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, GridItem, useToast } from '@chakra-ui/react';
 import Navbar from './components/Navbar';
 import Main from './components/Main';
 import './App.css';
 import Sidebar from './components/Sidebar';
 
+const defaultWeather = {
+  weather: {
+    main: {
+      temp: 0,
+      tempMax: 0,
+      tempMin: 0,
+      feelsLike: 0,
+    },
+    name: '',
+    weather: [
+      {
+        description: '',
+        icon: '',
+      },
+    ],
+  },
+  forecast: {
+    list: [
+      {
+        dt: 0,
+        main: {
+          temp: 0,
+          tempMax: 0,
+          tempMin: 0,
+          feelsLike: 0,
+        },
+        weather: [
+          {
+            main: '',
+            description: '',
+            icon: '',
+          },
+        ],
+      },
+    ],
+  },
+};
+
 function App() {
   const [location, setLocation] = React.useState('San Diego, US');
-  const [weather, setWeather] = React.useState({
-    weather: {
-      main: {
-        temp: 0,
-        tempMax: 0,
-        tempMin: 0,
-        feelsLike: 0,
-      },
-      name: '',
-      weather: [
-        {
-          description: '',
-          icon: '',
-        },
-      ],
-    },
-    forecast: {
-      list: [
-        {
-          dt: 0,
-          main: {
-            temp: 0,
-            tempMax: 0,
-            tempMin: 0,
-            feelsLike: 0,
-          },
-          weather: [
-            {
-              main: '',
-              description: '',
-              icon: '',
-            },
-          ],
-        },
-      ],
-    },
-  });
-  // const [units, setUnits] = React.useState('imperial');
+  const [weather, setWeather] = React.useState(defaultWeather);
+  const errToast = useToast();
   const units = 'imperial';
 
   const getWeather = async (type) => {
@@ -64,7 +66,15 @@ function App() {
       return resJSON;
     } catch (err) {
       // eslint-disable-next-line
-      alert(err);
+      // alert(err);
+      setWeather(defaultWeather);
+      errToast({
+        title: 'Error',
+        description: 'Please enter a valid location',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
       return err;
     }
   };
@@ -76,18 +86,27 @@ function App() {
   }, [location]);
 
   return (
-    // <Box id="App">
-    //   <Navbar />
-    //   <Main
-    //     handleLocation={setLocation}
-    //     weather={weather}
-    //     handleWeather={getWeather}
-    //   />
-    // </Box>
-    <Box id="App" display="grid" gridTemplateRows="auto 1fr">
-      <Navbar />
-      <Sidebar handleLocation={setLocation} />
-      <Main weather={weather} />
+    <Box
+      id="App"
+      display="grid"
+      gridTemplateRows="auto 1fr"
+      gridTemplateColumns={{ base: 'auto', md: 'auto 1fr' }}
+      h="100vh"
+      bgColor="gray.100"
+    >
+      <GridItem rowStart={1} colSpan={{ base: '1', md: '2' }}>
+        <Navbar handleLocation={setLocation} />
+      </GridItem>
+      <GridItem
+        rowStart={2}
+        visibility={{ base: 'hidden', md: 'visible' }}
+        display={{ base: 'none', md: 'block' }}
+      >
+        <Sidebar handleLocation={setLocation} />
+      </GridItem>
+      <GridItem rowStart={2} colStart={{ base: '1', md: '2' }}>
+        <Main weather={weather} />
+      </GridItem>
     </Box>
   );
 }
