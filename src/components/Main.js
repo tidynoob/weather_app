@@ -11,12 +11,13 @@ function Main(props) {
   const roundNum = (num) => (Math.round(num * 10) / 10).toFixed(1);
   const getDate = (date) => {
     const newDate = new Date(date * 1000);
-    const day = newDate.getDate();
-    // const month = newDate.getMonth() + 1;
+    const day = newDate.getUTCDate();
+    // const month = newDate.getUTCMonth() + 1;
     const monthName = newDate.toLocaleString('default', { month: 'short' });
     // const year = newDate.getFullYear();
     return `${monthName}-${day}`;
   };
+  // console.log(getDate(1667530800));
 
   const getDateTimestamp = (date) => {
     const newDate = new Date(date * 1000);
@@ -34,8 +35,9 @@ function Main(props) {
   return (
     <Box
       // bgColor="white"
-      mt={4}
-      maxW={{ base: '95%', md: 'sm' }}
+      // mt={4}
+      maxW={{ base: '100%', md: 'md' }}
+      // maxW="95%"
       display="flex"
       flexDirection="column"
       justifyContent="center"
@@ -43,6 +45,7 @@ function Main(props) {
       mx="auto"
       // p={4}
       gap={4}
+      bgColor="gray.100"
       // borderRadius="md"
       // boxShadow="md"
     >

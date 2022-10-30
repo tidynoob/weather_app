@@ -14,6 +14,7 @@ function ForecastDisplay(props) {
         (d) => getDate(d.dt) === getDate(item.dt) && d.dt > today
       ) === index
   );
+  //   console.log(filteredList);
 
   const forecastList = filteredList.map((item) => {
     const { dt: date, main: forecastMain, weather: forecastWeather } = item;
@@ -46,7 +47,7 @@ function ForecastDisplay(props) {
       shadow="md"
       bgColor="white"
       borderRadius="md"
-      justifyContent="space-evenly"
+      justifyContent={{ base: 'flex-start', md: 'space-evenly' }}
       p={4}
       gap={4}
       overflowX={{ base: 'scroll', md: 'hidden' }}

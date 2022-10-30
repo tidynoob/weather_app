@@ -90,9 +90,11 @@ function App() {
       id="App"
       display="grid"
       gridTemplateRows="auto 1fr"
-      gridTemplateColumns={{ base: 'auto', md: 'auto 1fr' }}
+      gridTemplateColumns={{ base: '', md: 'auto 1fr' }}
       h="100vh"
       bgColor="gray.100"
+      overflowY={{ base: 'scroll', md: 'hidden' }}
+      // overflowX="hidden"
     >
       <GridItem rowStart={1} colSpan={{ base: '1', md: '2' }}>
         <Navbar handleLocation={setLocation} />
@@ -104,7 +106,16 @@ function App() {
       >
         <Sidebar handleLocation={setLocation} />
       </GridItem>
-      <GridItem rowStart={2} colStart={{ base: '1', md: '2' }}>
+      <GridItem
+        rowStart={2}
+        colStart={{ base: '1', md: '2' }}
+        // p="4"
+        // mt="4"
+        p="4"
+        maxW={{ base: '100vw', md: 'md' }}
+        bgColor="gray.100"
+        mx="auto"
+      >
         <Main weather={weather} />
       </GridItem>
     </Box>
