@@ -4,22 +4,32 @@ import { Flex, Box, Heading, Text } from '@chakra-ui/react';
 import WeatherIcon from '../misc/WeatherIcon';
 
 function WeatherDisplay(props) {
-  const { weather } = props;
-  const { weather: weatherData, forecast } = weather;
-  const { main, name, weather: weatherArray } = weatherData;
+  const { weather, roundNum, getDateTimestamp } = props;
+  const { weather: weatherData } = weather;
+  const { main, name, weather: weatherArray, dt } = weatherData;
   const { temp, temp_max: tempMax, temp_min: tempMin } = main;
   const { description, icon } = weatherArray[0];
   // eslint-disable-next-line
-  const { list } = forecast;
 
-  const roundNum = (num) => (Math.round(num * 10) / 10).toFixed(1);
+  const date = getDateTimestamp(dt);
 
   return (
     main && (
-      <Box display="flex" flexDir="column" alignItems="center">
+      <Box
+        display="flex"
+        flexDir="column"
+        alignItems="center"
+        shadow="md"
+        bgColor="white"
+        borderRadius="md"
+        p={4}
+        // overflowX="scroll"
+        w="100%"
+      >
         <Heading size="3xl" textAlign="center">
           {name}
         </Heading>
+        <Text mt={2}>{date}</Text>
         <WeatherIcon iconId={icon} desc={description} />
         <Flex flexDir="column" alignItems="center">
           <Text as="b" fontSize="5xl">
@@ -48,6 +58,7 @@ WeatherDisplay.propTypes = {
         temp_min: PropTypes.number,
         feels_like: PropTypes.number,
       }),
+      dt: PropTypes.number,
       name: PropTypes.string,
       weather: PropTypes.arrayOf(
         PropTypes.shape({
@@ -77,6 +88,8 @@ WeatherDisplay.propTypes = {
       ),
     }),
   }).isRequired,
+  roundNum: PropTypes.func.isRequired,
+  getDateTimestamp: PropTypes.func.isRequired,
 };
 
 export default WeatherDisplay;

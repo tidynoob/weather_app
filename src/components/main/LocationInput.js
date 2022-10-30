@@ -84,8 +84,13 @@ function LocationInput(props) {
 
 LocationInput.propTypes = {
   handleLocation: PropTypes.func.isRequired,
-  closeDrawer: PropTypes.func.isRequired,
-  isDrawerOpen: PropTypes.bool.isRequired,
+  closeDrawer: PropTypes.func,
+  isDrawerOpen: PropTypes.bool,
+};
+
+LocationInput.defaultProps = {
+  closeDrawer: () => {},
+  isDrawerOpen: false,
 };
 
 export default LocationInput;

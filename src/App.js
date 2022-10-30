@@ -61,7 +61,7 @@ function App() {
       }));
 
       // eslint-disable-next-line
-      // console.log(resJSON)
+      console.log(resJSON)
 
       return resJSON;
     } catch (err) {
